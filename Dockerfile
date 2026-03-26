@@ -18,8 +18,10 @@ RUN apt-get update && apt-get install -y \
 # Copy requirements first for better caching
 COPY requirements.txt requirements-optional.txt ./
 
-# Install core Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt && \
+# Install CPU-only torch/torchaudio first, then remaining Python dependencies
+RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
+    torch==2.8.0 torchaudio==2.8.0 && \
+    pip install --no-cache-dir -r requirements.txt && \
     pip install --no-cache-dir flask
 
 # Install optional dependencies (llama-cpp-python, onnxruntime)

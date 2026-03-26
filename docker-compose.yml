@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: neutts-air-web
     ports:
-      - "5000:5000"
+      - "5555:5000"
     volumes:
       # Persist uploads and outputs
       - ./web_interface/uploads:/app/web_interface/uploads
